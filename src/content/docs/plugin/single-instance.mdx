@@ -125,12 +125,11 @@ fn show_window(app: &AppHandle) {
 
 ### Plugin Deep Link Integration
 
-Simply add the "deep-link" feature
+Note that when using deep link plugin it will emit events on macOS, iOS, and Android. However, on Windows and Linux, the operating system will launch a new instance of your app with the URL as a command-line argument. 
 
-```rust title="Cargo.toml" {2-4}
+To make your app behave consistently across all platforms (including Windows and Linux), you should enable the deep-link integration as follows:
+
+```rust title="Cargo.toml" {2}
 [dependencies]
-tauri-plugin-single-instance = { version = "2.0.0-rc", features = [
-  "deep-link",
-] }
-
+tauri-plugin-single-instance = { version = "2.0.0-rc", features = ["deep-link"] }
 ```
