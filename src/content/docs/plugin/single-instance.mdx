@@ -13,7 +13,7 @@ import CommandTabs from '@components/CommandTabs.astro';
 
 <PluginLinks plugin="single-instance" showJsLinks={false} />
 
-Ensure that a single instance of your tauri app is running at a time using the Single Instance Plugin.
+Ensure that a single instance of your tauri app is running at a time using the Single Instance Plugin. Can be integrated with the [deep link](/plugin/deep-link) plugin out of the box.
 
 ## Setup
 
@@ -88,6 +88,8 @@ So, the closure should look like below
 }))
 ```
 
+Note that currently, plugins run in the order they were added in to the builder, so make sure that this plugin is registered first.
+
 ### Focusing on New Instance
 
 By default, when you initiate a new instance while the application is already running, no action is taken. To focus the window of the running instance when user tries to open a new instance, alter the callback closure as follows:
@@ -119,4 +121,16 @@ fn show_window(app: &AppHandle) {
         .set_focus()
         .expect("Can't Bring Window to Focus");
 }
+```
+
+### Plugin Deep Link Integration
+
+Simply add the "deep-link" feature
+
+```rust title="Cargo.toml" {2-4}
+[dependencies]
+tauri-plugin-single-instance = { version = "2.0.0-rc", features = [
+  "deep-link",
+] }
+
 ```
